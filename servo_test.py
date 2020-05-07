@@ -13,9 +13,8 @@ arm = GPIO.PWM(16,50)
 alligator = GPIO.PWM(32,50)
 
 door.start(7.5) #door starts closed
-arm.start(12.5) #arm start inside the box
+arm.start(12.5) #arm starts inside the box
 alligator.start(2.5) #alligator starts facing the back
-
 
 def switch_activated(channel):
     time.sleep(0.005)
@@ -40,41 +39,14 @@ GPIO.add_event_detect(10, GPIO.BOTH, callback=switch_activated, bouncetime=20)
 
 try:
    while True:
-      #alligator.ChangeDutyCycle(7.5)
-      #time.sleep(.2)
       print("waiting for switch")
-      #alligator.ChangeDutyCycle(2.5)
-      #time.sleep(2)
-      #alligator.ChangeDutyCycle(12.5)
-      #time.sleep(2)
-      #door.ChangeDutyCycle(2.5)
-      #time.sleep(2)
-      #print(GPIO.input(10))
-      #arm.ChangeDutyCycle(2.5)
-      #print("at 2.5")
-      #time.sleep(2)
-      #arm.ChangeDutyCycle(7.5)
-      #print("at 7.5")
-      #time.sleep(2)
-     #arm.ChangeDutyCycle(12.5)
-     # print("at 12.5")
-      #time.sleep(2)
-      #print("closing box")
-      #door.ChangeDutyCycle(7.5)
-      #time.sleep(2)
 
-      #p.ChangeDutyCycle(7.5) #turn towards 90 degrees
-      #print('this is 90')
-      #time.sleep(1)
-      #p.ChangeDutyCycle(2.5) #turn towards 0
-        #p2.ChangeDutyCycle(2.5)
-      #print('this is 0')
-      #time.sleep(1)
-        #p.ChangeDutyCycle(12.5) #turn towards 180 degrees
-        #p2.ChangeDutyCycle(12.5)
-        #print('this is 180')
-        #time.sleep(1)
 except KeyboardInterrupt:
-  #p.stop()
-  # GPIO.remove_event_detect(11)
+   door.ChangeDutyCycle(7.5)
+   door.stop()
+   arm.ChangeDutyCycle(12.5)
+   arm.stop()
+   alligator.ChangeDutyCycle(2.5)
+   alligator.stop()
+   GPIO.remove_event_detect(10)
    GPIO.cleanup()
