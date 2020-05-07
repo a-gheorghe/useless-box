@@ -16,7 +16,7 @@ door.start(7.5) #door starts closed
 arm.start(12.5) #arm starts inside the box
 alligator.start(2.5) #alligator starts facing the back
 
-def default_action:
+def default_action():
   if GPIO.input(10) == 1:
     print("switched on")
     door.ChangeDutyCycle(2.5) #open door
