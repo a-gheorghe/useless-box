@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import random
 
 GPIO.setmode(GPIO.BOARD)
 
@@ -17,6 +18,7 @@ arm.start(12.5) #arm starts inside the box
 alligator.start(2.5) #alligator starts facing the back
 
 def default_action():
+  print("default")
   if GPIO.input(10) == 1:
     print("switched on")
     door.ChangeDutyCycle(2.5) #open door
@@ -34,6 +36,7 @@ def default_action():
     door.ChangeDutyCycle(7.5) #close door
 
 def overall_fast():
+  print("overall_fast")
   if GPIO.input(10) == 1:
     print("switched on")
     door.ChangeDutyCycle(2.5) #open door
@@ -49,11 +52,12 @@ def overall_fast():
     alligator.ChangeDutyCycle(2.5) #turn alligator head back
     time.sleep(.5)
     door.ChangeDutyCycle(7.5) #close door
-    
-function_list = [default_action, overall_fast]
 
 def switch_activated(channel):
+    print("switch was activated")
+    function_list = [default_action, overall_fast]
     time.sleep(0.005)
+    #default_action()
     random.choice(function_list)()
 
 GPIO.add_event_detect(10, GPIO.BOTH, callback=switch_activated, bouncetime=20)
