@@ -20,24 +20,41 @@ def default_action():
   if GPIO.input(10) == 1:
     print("switched on")
     door.ChangeDutyCycle(2.5) #open door
-    time.sleep(0.5)
+    time.sleep(1)
     alligator.ChangeDutyCycle(12.5) #turn alligator head to front
-    time.sleep(2)
+    time.sleep(1)
     arm.ChangeDutyCycle(2.5) #move arm out to close switch
-    time.sleep(0.5)
+    time.sleep(1)
   else:
     print("switched off")
     arm.ChangeDutyCycle(12.5) #move arm back in
-    time.sleep(0.5)
+    time.sleep(1)
     alligator.ChangeDutyCycle(2.5) #turn alligator head back
-    time.sleep(0.5)
+    time.sleep(1)
     door.ChangeDutyCycle(7.5) #close door
 
+def overall_fast():
+  if GPIO.input(10) == 1:
+    print("switched on")
+    door.ChangeDutyCycle(2.5) #open door
+    time.sleep(.5)
+    alligator.ChangeDutyCycle(12.5) #turn alligator head to front
+    time.sleep(.5)
+    arm.ChangeDutyCycle(2.5) #move arm out to close switch
+    time.sleep(.5)
+  else:
+    print("switched off")
+    arm.ChangeDutyCycle(12.5) #move arm back in
+    time.sleep(.5)
+    alligator.ChangeDutyCycle(2.5) #turn alligator head back
+    time.sleep(.5)
+    door.ChangeDutyCycle(7.5) #close door
+    
+function_list = [default_action, overall_fast]
 
 def switch_activated(channel):
     time.sleep(0.005)
-    default_action()
-
+    random.choice(function_list)()
 
 GPIO.add_event_detect(10, GPIO.BOTH, callback=switch_activated, bouncetime=20)
 
